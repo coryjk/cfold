@@ -7,10 +7,7 @@ template <class T>
 matrix<T>::matrix(uint32_t r, uint32_t c, const T& init) {
     _N = r;
     _M = c;
-    _data.resize(_N);
-    for (int i = 0; i < _N; i++) {
-        _data[i].resize(_M, init);
-    }
+    this->resize(_N, _M, init);
 }
 
 template <class T>
@@ -28,12 +25,7 @@ matrix<T>& matrix<T>::operator=(const matrix<T>& m) {
     if (&m == this) {
         return *this;
     }
-    _N = m.N();
-    _M = m.M();
-    _data.resize(_N);
-    for (int i = 0; i < _N; i++) {
-        _data[i].resize(_M);
-    }
+    this->resize(m.N(), m.M());
     for (int i = 0; i < _N; i++) {
         for (int j = 0; j < _M; j++) {
             _data[i][j] = m(i, j);
@@ -151,6 +143,20 @@ void matrix<T>::vec2mat(vector<vector<T>> v) {
     _N = v.size();
     _M = v[0].size();
     _data = v;
+}
+
+template <class T>
+void matrix<T>::resize(int r, int c, const T& init) {
+    if (r < 1 || c < 1) {
+        return;
+    }
+    _N = r;
+    _M = c;
+    _data.resize(_N);
+    for (int i = 0; i < _N; i++) {
+        _data[i].resize(_M);
+        fill(_data[i].begin(), _data[i].end(), init);
+    }
 }
 
 #endif

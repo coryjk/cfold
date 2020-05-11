@@ -37,6 +37,7 @@ public:
 
     void vec2mat(vector<T> v);
     void vec2mat(vector<vector<T>> v);
+    void resize(int r, int c, const T& init = 0);
 
 private:
     vector<vector<T>> _data;

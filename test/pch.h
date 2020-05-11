@@ -7,6 +7,7 @@
 #ifndef PCH_H
 #define PCH_H
 
-// add headers that you want to pre-compile here
+#include <stdlib.h> 
+#include <time.h>
 
 #endif //PCH_H

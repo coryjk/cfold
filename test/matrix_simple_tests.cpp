@@ -61,7 +61,33 @@ namespace matrix_simple_tests {
 				}
 			}
 		}
-
+		TEST_METHOD(vec2mat_medium) {
+			// init
+			srand(time(NULL));
+			int lo = 0, hi = 1000;
+			int params[3][2] = {
+				{300, 300},
+				{500, 1000},
+				{1000, 500}
+			};
+			matrix<int> m;
+			for (int* dims : params) {
+				vector<vector<int>> v(dims[0], vector<int>(dims[1], 0));
+				// define target vector
+				for (int i = 0; i < v.size(); i++) {
+					for (int j = 0; j < v[0].size(); j++) {
+						v[i][j] = rand() % (hi - lo) + lo;
+					}
+				}
+				// vec2mat
+				m.vec2mat(v);
+				// perform N*M / 2 random checks
+				for (int i = 0; i < m.N() * m.M() / 2; i++) {
+					int _r = rand() % m.N(), _c = rand() % m.M();
+					Assert::AreEqual(m(_r,_c), v[_r][_c]);
+				}
+			}
+		}
 		TEST_METHOD(zeros1) {
 			fixture fx;
 			for (int i = 0; i < fx._M_zeros.size(); i++) {
@@ -70,6 +96,35 @@ namespace matrix_simple_tests {
 					for (int m = 0; m < mat.M(); m++) {
 						Assert::AreEqual(mat(n, m), 0);
 					}
+				}
+			}
+		}
+
+		TEST_METHOD(resize) {
+			// init
+			srand(time(NULL)); // using random seed based on time
+			const int n_params = 6;
+			int params[n_params][3] = {
+				{1, 1, 0},
+				{1, 1, 1},
+				{5, 5, 0},
+				{5, 10, 0},
+				{10, 10, 5},
+				{256, 256, 3}
+			};
+			matrix<int> m;
+			for (int i = 0; i < n_params; i++) {
+				int N = params[i][0];
+				int M = params[i][1];
+				int val = params[i][2];
+				m.resize(N, M, val);
+				// dimensionality check
+				Assert::IsTrue(N == m.N());
+				Assert::IsTrue(M == m.M());
+				// perform N*M / 2 random checks
+				for (int j = 0; j < N * M / 2; j++) {
+					int res = m(rand() % N, rand() % M);
+					Assert::IsTrue(res == val);
 				}
 			}
 		}
