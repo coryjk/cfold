@@ -51,7 +51,6 @@ bool lattice::contains(const string& seq) {
 }
 
 vector<matrix<int>>* lattice::walk_seq(const vector<char>& seq, const int init[3]) {
-    uint32_t offset;
     vector<matrix<int>>* p = new vector<matrix<int>>();
     vector<int> v;
     matrix<int> m;

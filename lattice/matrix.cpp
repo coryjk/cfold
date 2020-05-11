@@ -102,16 +102,24 @@ vector<T> matrix<T>::operator*(const vector<T>& v) {
 }
 
 template <class T>
-T& matrix<T>::operator()(const uint32_t& r, const uint32_t& c) { }
+T& matrix<T>::operator()(const uint32_t& r, const uint32_t& c) { 
+    return _data[r][c];
+}
 
 template <class T>
-const T& matrix<T>::operator()(const uint32_t& r, const uint32_t& c) const { }
+const T& matrix<T>::operator()(const uint32_t& r, const uint32_t& c) const {
+    return _data[r][c];
+}
 
 template <class T>
-uint32_t const matrix<T>::N() { }
+uint32_t const matrix<T>::N() {
+    return _N;
+}
 
 template <class T>
-uint32_t const matrix<T>::M() { }
+uint32_t const matrix<T>::M() { 
+    return _M;
+}
 
 template <class T>
 void matrix<T>::vec2mat(vector<T> v) {
