@@ -7,8 +7,7 @@ lattice::lattice(int len, char init) {
 
 lattice::lattice(const char seq[]) {
     _N = strlen(seq);
-    uint32_t offset = sizeof(seq) / sizeof(seq[0]);
-    _seq = vector<char>(seq, seq + offset);
+    _seq = vector<char>(seq, seq + DIM);
 }
 
 lattice::lattice(const string& seq) : lattice(seq.c_str()) { }
@@ -57,8 +56,7 @@ vector<matrix<int>>* lattice::walk_seq(const vector<char>& seq, const int init[3
     vector<int> v;
     matrix<int> m;
 
-    offset = sizeof(init) / sizeof(init[0]);
-    v = vector<int>(init, init + offset);
+    v = vector<int>(init, init + DIM);
     m.vec2mat(v);
 
     p->push_back(m);
