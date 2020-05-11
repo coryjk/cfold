@@ -1,5 +1,5 @@
-#ifndef MATRIX_CPP
-#define MATRIX_CPP
+#ifndef __MATRIX_CPP
+#define __MATRIX_CPP
 
 #include "matrix.h"
 
@@ -42,7 +42,7 @@ matrix<T>& matrix<T>::operator=(const matrix<T>& m) {
     return *this;
 }
 
-template <class T> // TODO: apply vector data to matrix
+template <class T>
 matrix<T> matrix<T>::operator+(const T& a) {
     matrix<T> res;
     vector<vector<T>> new_data(_N, vector<T>(_M, _data[0][0]));
@@ -140,8 +140,8 @@ uint32_t matrix<T>::M() const {
 
 template <class T>
 void matrix<T>::vec2mat(vector<T> v) {
-    _N = v.size();
-    _M = 1;
+    _N = 1;
+    _M = v.size();
     _data = vector<vector<T>>();
     _data.push_back(v);
 }

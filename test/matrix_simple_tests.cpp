@@ -34,18 +34,32 @@ namespace matrix_simple_tests {
 			matrix<int> m3(5, 5, 1);
 			Assert::IsTrue(true);
 		}
-		TEST_METHOD(vec2mat) {
-			vector<int> v1({ 1, -1, 1 });
-			vector<int> v2({ 0, 0, 0, -1, 256, 0, -1 });
-			vector<vector<int>> v3({
+		TEST_METHOD(vec2mat_simple) {
+			vector<int> ones_1x3({ 1, 1, 1 });
+			vector<vector<int>> identity_3x3({
 				{1, 0, 0},
 				{0, 1, 0},
 				{0, 0, 1}
 			});
-
 			matrix<int> m;
-			m.vec2mat(v1);
-			// TODO
+			// 1 x 3 
+			m.vec2mat(ones_1x3);
+			Assert::IsTrue(m.N()-1 == 0);
+			Assert::IsTrue(m.M()-ones_1x3.size() == 0);
+			for (int i = 0; i < m.N(); i++) {
+				for (int j = 0; j < m.M(); j++) {
+					Assert::IsTrue(m(i, j) == ones_1x3[j]);
+				}
+			}
+			// 3 x 3 identity
+			m.vec2mat(identity_3x3);
+			Assert::IsTrue(m.N() - identity_3x3.size() == 0);
+			Assert::IsTrue(m.M() - identity_3x3[0].size() == 0);
+			for (int i = 0; i < m.N(); i++) {
+				for (int j = 0; j < m.M(); j++) {
+					Assert::IsTrue(m(i, j) == identity_3x3[i][j]);
+				}
+			}
 		}
 
 		TEST_METHOD(zeros1) {

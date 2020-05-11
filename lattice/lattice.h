@@ -1,5 +1,5 @@
-#ifndef LATTICE_H
-#define LATTICE_H
+#ifndef __LATTICE_H
+#define __LATTICE_H
 
 #include <cstring>
 #include <string>
