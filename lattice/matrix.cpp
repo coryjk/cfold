@@ -7,7 +7,10 @@ template <class T>
 matrix<T>::matrix(uint32_t r, uint32_t c, const T& init) {
     _N = r;
     _M = c;
-    _data = vector<vector<T>>(_N, vector<T>(_M, init));
+    _data.resize(_N);
+    for (int i = 0; i < _N; i++) {
+        _data[i].resize(_M, init);
+    }
 }
 
 template <class T>
@@ -22,7 +25,21 @@ matrix<T>::~matrix() { }
 
 template <class T>
 matrix<T>& matrix<T>::operator=(const matrix<T>& m) {
-    return m;
+    if (&m == this) {
+        return *this;
+    }
+    _N = m.N();
+    _M = m.M();
+    _data.resize(_N);
+    for (int i = 0; i < _N; i++) {
+        _data[i].resize(_M);
+    }
+    for (int i = 0; i < _N; i++) {
+        for (int j = 0; j < _M; j++) {
+            _data[i][j] = m(i, j);
+        }
+    }
+    return *this;
 }
 
 template <class T> // TODO: apply vector data to matrix
@@ -112,12 +129,12 @@ const T& matrix<T>::operator()(const uint32_t& r, const uint32_t& c) const {
 }
 
 template <class T>
-uint32_t const matrix<T>::N() {
+uint32_t matrix<T>::N() const {
     return _N;
 }
 
 template <class T>
-uint32_t const matrix<T>::M() { 
+uint32_t matrix<T>::M() const { 
     return _M;
 }
 

@@ -1,6 +1,7 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
+#include <iostream>
 #include <cstdint>
 #include <vector>
 #include <assert.h>
@@ -9,7 +10,7 @@ using namespace std;
 
 template <typename T> class matrix {
 public:
-    matrix() {};
+    matrix() : matrix(1, 1, 0) {};
     matrix(uint32_t r, uint32_t c, const T& init);
     matrix(const matrix<T>& m);
     ~matrix();
@@ -31,8 +32,8 @@ public:
     // access
     T& operator()(const uint32_t& r, const uint32_t& c);
     const T& operator()(const uint32_t& r, const uint32_t& c) const;
-    uint32_t const N();
-    uint32_t const M();
+    uint32_t N() const;
+    uint32_t M() const;
 
     void vec2mat(vector<T> v);
     void vec2mat(vector<vector<T>> v);

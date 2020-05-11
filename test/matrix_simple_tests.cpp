@@ -12,12 +12,21 @@ namespace matrix_simple_tests {
 				_zero_matrices();
 			}
 			int _zero_matrices() {
+				_M_1x1_0 = matrix<int>(1, 1, 0);
 				_M_3x3_0 = matrix<int>(3, 3, 0);
+				_M_256x256_0 = matrix<int>(256, 256, 0);
+
+				_M_zeros.push_back(_M_1x1_0_DEFAULT);
+				_M_zeros.push_back(_M_1x1_0);
 				_M_zeros.push_back(_M_3x3_0);
+				_M_zeros.push_back(_M_256x256_0);
 				return 0;
 			}
 			vector<matrix<int>> _M_zeros;
+			matrix<int> _M_1x1_0_DEFAULT;
+			matrix<int> _M_1x1_0;
 			matrix<int> _M_3x3_0;
+			matrix<int> _M_256x256_0;
 		};
 		TEST_METHOD(init) {
 			matrix<int> m1;
@@ -25,6 +34,10 @@ namespace matrix_simple_tests {
 			matrix<int> m3(5, 5, 1);
 			Assert::IsTrue(true);
 		}
+		TEST_METHOD(vec2mat) {
+
+		}
+
 		TEST_METHOD(zeros1) {
 			fixture fx;
 			for (int i = 0; i < fx._M_zeros.size(); i++) {
