@@ -140,12 +140,16 @@ uint32_t matrix<T>::M() const {
 
 template <class T>
 void matrix<T>::vec2mat(vector<T> v) {
+    _N = v.size();
+    _M = 1;
     _data = vector<vector<T>>();
     _data.push_back(v);
 }
 
 template <class T>
 void matrix<T>::vec2mat(vector<vector<T>> v) {
+    _N = v.size();
+    _M = v[0].size();
     _data = v;
 }
 

@@ -35,7 +35,17 @@ namespace matrix_simple_tests {
 			Assert::IsTrue(true);
 		}
 		TEST_METHOD(vec2mat) {
+			vector<int> v1({ 1, -1, 1 });
+			vector<int> v2({ 0, 0, 0, -1, 256, 0, -1 });
+			vector<vector<int>> v3({
+				{1, 0, 0},
+				{0, 1, 0},
+				{0, 0, 1}
+			});
 
+			matrix<int> m;
+			m.vec2mat(v1);
+			// TODO
 		}
 
 		TEST_METHOD(zeros1) {
