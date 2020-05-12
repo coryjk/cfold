@@ -12,7 +12,7 @@ using namespace std;
 template <typename T> class matrix {
 public:
     matrix() : matrix(1, 1, 0) {};
-    matrix(uint32_t r, uint32_t c, const T& init);
+    matrix(uint32_t r, uint32_t c, const T& init = 0);
     matrix(const matrix<T>& m);
     ~matrix();
 
@@ -45,7 +45,7 @@ private:
     uint32_t _N = 1;
     uint32_t _M = 1;
 
-    matrix<T> _operator_scalar(function<T(T)>& f, const T& a);
+    matrix<T> _operator_scalar(function<T(const T&, const T&)> f, const T& a);
 };
 
 #include "matrix.cpp"

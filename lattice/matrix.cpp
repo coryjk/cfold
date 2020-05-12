@@ -38,11 +38,11 @@ matrix<T>& matrix<T>::operator=(const matrix<T>& m) {
 }
 
 template<class T>
-matrix<T> matrix<T>::_operator_scalar(function<T(T)>& f, const T& a) {
-    matrix<int> res(this);
+matrix<T> matrix<T>::_operator_scalar(function<T(const T&, const T&)> f, const T& a) {
+    matrix<int> res(*this);
     for (int i = 0; i < _N; i++) {
         for (int j = 0; j < _M; j++) {
-            res(i, j) = f(*this(i, j), a);
+            res(i, j) = f((*this)(i, j), a);
         }
     }
     return res;
@@ -50,28 +50,28 @@ matrix<T> matrix<T>::_operator_scalar(function<T(T)>& f, const T& a) {
 
 template <class T>
 matrix<T> matrix<T>::operator+(const T& a) {
-    return this->_operator_scalar([](T& x, T& y) {
+    return this->_operator_scalar([](const T& x, const T& y) -> T {
         return x + y;
     }, a);
 }
 
 template <class T>
 matrix<T> matrix<T>::operator-(const T& a) {
-    return this->_operator_scalar([](T& x, T& y) {
+    return this->_operator_scalar([](const T& x, const T& y) -> T {
         return x - y;
     }, a);
 }
 
 template <class T>
 matrix<T> matrix<T>::operator*(const T& a) {
-    return this->_operator_scalar([](T& x, T& y) {
+    return this->_operator_scalar([](const T& x, const T& y) -> T {
         return x * y;
     }, a);
 }
 
 template <class T>
 matrix<T> matrix<T>::operator/(const T& a) {
-    return this->_operator_scalar([](T& x, T& y) {
+    return this->_operator_scalar([](const T& x, const T& y) -> T {
         return x / y;
     }, a);
 }
