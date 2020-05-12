@@ -103,7 +103,7 @@ template <class T>
 matrix<T> matrix<T>::operator-(const matrix<T>& m) { 
     if (_N - m.N() + _M - m.M() != 0) {
         string expected = to_string(_N) + " x " + to_string(_M);
-        string actual = to_string(m.N()) + " x " + to_string(m.M());
+        string actual   = to_string(m.N()) + " x " + to_string(m.M());
         throw runtime_error("Expected input " + expected + "matrix , got " + actual);
     }
     return this->_operator_matrix([](const T& x, const T& y) -> T {

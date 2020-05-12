@@ -20,18 +20,21 @@ namespace matrix_arithmetic_tests {
 				{100, 100}
 			};
 		};
+		static void _random_init(matrix<int>* m, struct fixture* fx) {
+			for (int i = 0; i < m->N(); i++) {
+				for (int j = 0; j < m->M(); j++) {
+					// random value within [0, fx._CEIL_VAL)
+					(*m)(i, j) = rand() % fx->_CEIL_VAL;
+				}
+			}
+		}
 		TEST_METHOD(add_scalar) {
 			struct fixture fx;
 			int hi = 5;
 			for (const int* params : fx._MATS) {
 				// init
 				matrix<int> m(params[0], params[1]);
-				for (int i = 0; i < m.N(); i++) {
-					for (int j = 0; j < m.M(); j++) {
-						// random value within [0, fx._CEIL_VAL)
-						m(i, j) = rand() % fx._CEIL_VAL;
-					}
-				}
+				_random_init(&m, &fx);
 				// test scalar op using a = [0, hi)
 				for (int a = 0; a < hi; a++) {
 					matrix<int> res = m + a;
@@ -50,12 +53,7 @@ namespace matrix_arithmetic_tests {
 			for (const int* params : fx._MATS) {
 				// init
 				matrix<int> m(params[0], params[1]);
-				for (int i = 0; i < m.N(); i++) {
-					for (int j = 0; j < m.M(); j++) {
-						// random value within [0, fx._CEIL_VAL)
-						m(i, j) = rand() % fx._CEIL_VAL;
-					}
-				}
+				_random_init(&m, &fx);
 				// test scalar op using a = [0, hi)
 				for (int a = 0; a < hi; a++) {
 					matrix<int> res = m - a;
@@ -74,12 +72,7 @@ namespace matrix_arithmetic_tests {
 			for (const int* params : fx._MATS) {
 				// init
 				matrix<int> m(params[0], params[1]);
-				for (int i = 0; i < m.N(); i++) {
-					for (int j = 0; j < m.M(); j++) {
-						// random value within [0, fx._CEIL_VAL)
-						m(i, j) = rand() % fx._CEIL_VAL;
-					}
-				}
+				_random_init(&m, &fx);
 				// test scalar op using a = [0, hi)
 				for (int a = 0; a < hi; a++) {
 					matrix<int> res = m * a;
@@ -98,12 +91,7 @@ namespace matrix_arithmetic_tests {
 			for (const int* params : fx._MATS) {
 				// init
 				matrix<int> m(params[0], params[1]);
-				for (int i = 0; i < m.N(); i++) {
-					for (int j = 0; j < m.M(); j++) {
-						// random value within [0, fx._CEIL_VAL)
-						m(i, j) = rand() % fx._CEIL_VAL;
-					}
-				}
+				_random_init(&m, &fx);
 				// test scalar op using a = (0, hi)
 				for (int a = 1; a < hi; a++) {
 					matrix<int> res = m / a;
@@ -117,11 +105,41 @@ namespace matrix_arithmetic_tests {
 		}
 
 		TEST_METHOD(add) {
+			struct fixture fx;
+			for (const int* params : fx._MATS) {
+				// init
+				matrix<int> A(params[0], params[1]);
+				matrix<int> B(params[0], params[1]);
+				_random_init(&A, &fx);
+				_random_init(&B, &fx);
 
+				matrix<int> C = A + B;
+				// test matrix op
+				for (int i = 0; i < A.N(); i++) {
+					for (int j = 0; j < A.M(); j++) {
+						Assert::AreEqual(C(i, j), A(i, j) + B(i, j));
+					}
+				}
+			}
 		}
 
 		TEST_METHOD(sub) {
+			struct fixture fx;
+			for (const int* params : fx._MATS) {
+				// init
+				matrix<int> A(params[0], params[1]);
+				matrix<int> B(params[0], params[1]);
+				_random_init(&A, &fx);
+				_random_init(&B, &fx);
 
+				matrix<int> C = A - B;
+				// test matrix op
+				for (int i = 0; i < A.N(); i++) {
+					for (int j = 0; j < A.M(); j++) {
+						Assert::AreEqual(C(i, j), A(i, j) - B(i, j));
+					}
+				}
+			}
 		}
 
 		TEST_METHOD(mult) {
