@@ -5,6 +5,7 @@
 #include <cstdint>
 #include <vector>
 #include <assert.h>
+#include <functional>
 
 using namespace std;
 
@@ -43,6 +44,8 @@ private:
     vector<vector<T>> _data;
     uint32_t _N = 1;
     uint32_t _M = 1;
+
+    matrix<T> _operator_scalar(function<T(T)>& f, const T& a);
 };
 
 #include "matrix.cpp"

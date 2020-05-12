@@ -5,6 +5,9 @@
 
 template <class T>
 matrix<T>::matrix(uint32_t r, uint32_t c, const T& init) {
+    if (r < 1 || c < 1) {
+        r = 1; c = 1;
+    }
     _N = r;
     _M = c;
     this->resize(_N, _M, init);
@@ -34,56 +37,43 @@ matrix<T>& matrix<T>::operator=(const matrix<T>& m) {
     return *this;
 }
 
-template <class T>
-matrix<T> matrix<T>::operator+(const T& a) {
-    matrix<T> res;
-    vector<vector<T>> new_data(_N, vector<T>(_M, _data[0][0]));
+template<class T>
+matrix<T> matrix<T>::_operator_scalar(function<T(T)>& f, const T& a) {
+    matrix<int> res(this);
     for (int i = 0; i < _N; i++) {
         for (int j = 0; j < _M; j++) {
-            new_data[i][j] = _data[i][j] + a;
+            res(i, j) = f(*this(i, j), a);
         }
     }
-    res.vec2mat(new_data);
     return res;
+}
+
+template <class T>
+matrix<T> matrix<T>::operator+(const T& a) {
+    return this->_operator_scalar([](T& x, T& y) {
+        return x + y;
+    }, a);
 }
 
 template <class T>
 matrix<T> matrix<T>::operator-(const T& a) {
-    matrix<T> res;
-    vector<vector<T>> new_data(_N, vector<T>(_M, _data[0][0]));
-    for (int i = 0; i < _N; i++) {
-        for (int j = 0; j < _M; j++) {
-            new_data[i][j] = _data[i][j] - a;
-        }
-    }
-    res.vec2mat(new_data);
-    return res;
+    return this->_operator_scalar([](T& x, T& y) {
+        return x - y;
+    }, a);
 }
 
 template <class T>
 matrix<T> matrix<T>::operator*(const T& a) {
-    matrix<T> res;
-    vector<vector<T>> new_data(_N, vector<T>(_M, _data[0][0]));
-    for (int i = 0; i < _N; i++) {
-        for (int j = 0; j < _M; j++) {
-            new_data[i][j] = _data[i][j] * a;
-        }
-    }
-    res.vec2mat(new_data);
-    return res;
+    return this->_operator_scalar([](T& x, T& y) {
+        return x * y;
+    }, a);
 }
 
 template <class T>
 matrix<T> matrix<T>::operator/(const T& a) {
-    matrix<T> res;
-    vector<vector<T>> new_data(_N, vector<T>(_M, _data[0][0]));
-    for (int i = 0; i < _N; i++) {
-        for (int j = 0; j < _M; j++) {
-            new_data[i][j] = _data[i][j] / a;
-        }
-    }
-    res.vec2mat(new_data);
-    return res;
+    return this->_operator_scalar([](T& x, T& y) {
+        return x / y;
+    }, a);
 }
 
 template <class T>
