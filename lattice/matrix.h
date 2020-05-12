@@ -4,8 +4,10 @@
 #include <iostream>
 #include <cstdint>
 #include <vector>
+#include <string>
 #include <assert.h>
 #include <functional>
+#include <stdexcept>
 
 using namespace std;
 
@@ -46,6 +48,7 @@ private:
     uint32_t _M = 1;
 
     matrix<T> _operator_scalar(function<T(const T&, const T&)> f, const T& a);
+    matrix<T> _operator_matrix(function<T(const T&, const T&)> f, const matrix<T>& m);
 };
 
 #include "matrix.cpp"
