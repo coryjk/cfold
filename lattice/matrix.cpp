@@ -92,7 +92,7 @@ matrix<T> matrix<T>::operator+(const matrix<T>& m) {
     if (_N - m.N() + _M - m.M() != 0) {
         string expected = to_string(_N) + " x " + to_string(_M);
         string actual   = to_string(m.N()) + " x " + to_string(m.M());
-        throw runtime_error("Expected input " + expected + "matrix , got " + actual);
+        throw runtime_error("Expected input " + expected + "matrix, got " + actual);
     }
     return this->_operator_matrix([](const T& x, const T& y) -> T {
         return x + y;
@@ -104,7 +104,7 @@ matrix<T> matrix<T>::operator-(const matrix<T>& m) {
     if (_N - m.N() + _M - m.M() != 0) {
         string expected = to_string(_N) + " x " + to_string(_M);
         string actual   = to_string(m.N()) + " x " + to_string(m.M());
-        throw runtime_error("Expected input " + expected + "matrix , got " + actual);
+        throw runtime_error("Expected input " + expected + "matrix, got " + actual);
     }
     return this->_operator_matrix([](const T& x, const T& y) -> T {
         return x - y;
@@ -113,13 +113,26 @@ matrix<T> matrix<T>::operator-(const matrix<T>& m) {
 
 template <class T>
 matrix<T> matrix<T>::operator*(const matrix<T>& m) { 
-    matrix<T> res;
+    if (_M != m.N()) {
+        string expected = to_string(_M) + " x _";
+        string actual = to_string(m.N()) + " x " + to_string(m.M());
+        throw runtime_error("Expected input " + expected + "matrix, got " + actual);
+    }
+    matrix<T> res(_N, _M);
+    for (int i = 0; i < _N; i++) {
+        for (int j = 0; j < _M; j++) {
+            for (int k = 0; k < m.N(); k++) {
+                res(i, j) += (*this)(i, k) * m(k, j);
+            }
+        }
+    }
     return res;
 }
 
 template <class T>
 vector<T> matrix<T>::operator*(const vector<T>& v) { 
-    matrix<T> res;
+    matrix<T> res(_N, _M);
+
     return res;
 }
 
