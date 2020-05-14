@@ -120,7 +120,7 @@ matrix<T> matrix<T>::operator*(const matrix<T>& m) {
     }
     matrix<T> res(_N, _M);
     for (int i = 0; i < _N; i++) {
-        for (int j = 0; j < _M; j++) {
+        for (int j = 0; j < m.M(); j++) {
             for (int k = 0; k < m.N(); k++) {
                 res(i, j) += (*this)(i, k) * m(k, j);
             }
