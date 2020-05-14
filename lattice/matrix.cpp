@@ -131,8 +131,18 @@ matrix<T> matrix<T>::operator*(const matrix<T>& m) {
 
 template <class T>
 vector<T> matrix<T>::operator*(const vector<T>& v) { 
-    matrix<T> res(_N, _M);
-
+    // treat as |v| x 1, as opposed to 1 x |v| (use matrix via vec2mat)
+    if (_M != v.size()) {
+        string expected = to_string(_M) + " x 1";
+        string actual = to_string(v.size()) + " x 1";
+        throw runtime_error("Expected input " + expected + "vector, got " + actual);
+    }
+    matrix<T> res(_N, 1);
+    for (int i = 0; i < _N; i++) {
+        for (int k = 0; k < v.size(); k++) {
+            res(i, 0) += (*this)(i, k) * v[k];
+        }
+    }
     return res;
 }
 
