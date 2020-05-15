@@ -16,6 +16,7 @@ public:
     matrix() : matrix(1, 1, 0) {};
     matrix(uint32_t r, uint32_t c, const T& init = 0);
     matrix(const matrix<T>& m);
+    matrix(const vector<T>& v);
     ~matrix();
 
     matrix<T>& operator=(const matrix<T>& m);
@@ -32,7 +33,7 @@ public:
     matrix<T> operator*(const matrix<T>& m);
     vector<T> operator*(const vector<T>& v);
 
-    // TODO: ==
+    bool operator==(const matrix<T>& m);
 
     // access
     T& operator()(const uint32_t& r, const uint32_t& c);
@@ -45,7 +46,13 @@ public:
     void resize(int r, int c, const T& init = 0);
 
     // only defined for numerical types and square matrices, TODO: handle different numerical types...
-    static matrix<int> identity_matrix(const uint32_t& N);
+    static matrix<int> identity_matrix(const uint32_t& N) {
+        matrix<int> res(N, N, 0);
+        for (int i = 0; i < N; i++) {
+            res(i, i) = 1;
+        }
+        return res;
+    }
 
 private:
     vector<vector<T>> _data;

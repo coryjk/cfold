@@ -156,7 +156,7 @@ namespace matrix_arithmetic_tests {
 			for (const int* params : fx._SQUARE_MATS) {
 				// init
 				matrix<int> A(params[0], params[1]);
-				matrix<int> I = identity_matrix(params[0]);
+				matrix<int> I = matrix<int>::identity_matrix(params[0]);
 				_random_init(&A, &fx);
 
 			}
