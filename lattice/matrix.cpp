@@ -195,4 +195,12 @@ void matrix<T>::resize(int r, int c, const T& init) {
     }
 }
 
+static matrix<int> identity_matrix(const uint32_t& N) {
+    matrix<int> res(N, N, 0);
+    for (int i = 0; i < N; i++) {
+        res(i, i) = 1;
+    }
+    return res;
+}
+
 #endif

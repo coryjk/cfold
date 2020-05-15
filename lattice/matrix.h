@@ -32,6 +32,8 @@ public:
     matrix<T> operator*(const matrix<T>& m);
     vector<T> operator*(const vector<T>& v);
 
+    // TODO: ==
+
     // access
     T& operator()(const uint32_t& r, const uint32_t& c);
     const T& operator()(const uint32_t& r, const uint32_t& c) const;
@@ -41,6 +43,9 @@ public:
     void vec2mat(vector<T> v);
     void vec2mat(vector<vector<T>> v);
     void resize(int r, int c, const T& init = 0);
+
+    // only defined for numerical types and square matrices, TODO: handle different numerical types...
+    static matrix<int> identity_matrix(const uint32_t& N);
 
 private:
     vector<vector<T>> _data;

@@ -81,7 +81,7 @@ namespace matrix_simple_tests {
 				}
 				// vec2mat
 				m.vec2mat(v);
-				// perform N*M / 2 random checks
+				// perform NM/2 random checks
 				for (int i = 0; i < m.N() * m.M() / 2; i++) {
 					int _r = rand() % m.N(), _c = rand() % m.M();
 					Assert::AreEqual(m(_r,_c), v[_r][_c]);
@@ -121,7 +121,7 @@ namespace matrix_simple_tests {
 				// dimensionality check
 				Assert::IsTrue(N == m.N());
 				Assert::IsTrue(M == m.M());
-				// perform N*M / 2 random checks
+				// perform NM/2 random checks
 				for (int j = 0; j < N * M / 2; j++) {
 					int res = m(rand() % N, rand() % M);
 					Assert::IsTrue(res == val);

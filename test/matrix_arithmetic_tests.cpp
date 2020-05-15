@@ -4,6 +4,8 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
+constexpr int _N_PARAMS = 5;
+
 namespace matrix_arithmetic_tests {
 	TEST_CLASS(test) {
 	public:
@@ -12,12 +14,19 @@ namespace matrix_arithmetic_tests {
 				srand(time(NULL));
 			}
 			const int _CEIL_VAL = 256;
-			const int _MATS[5][2] = {
+			const int _MATS[_N_PARAMS][2] = {
 				{3, 3},
 				{10, 10},
 				{50, 50},
 				{50, 10},
 				{100, 100}
+			};
+			const int _SQUARE_MATS[_N_PARAMS][2] = {
+				{2, 2},
+				{10, 10},
+				{50, 50},
+				{100, 100},
+				{256, 256}
 			};
 		};
 		static void _random_init(matrix<int>* m, struct fixture* fx) {
@@ -142,11 +151,18 @@ namespace matrix_arithmetic_tests {
 			}
 		}
 
-		TEST_METHOD(mult) {
+		TEST_METHOD(mult_mat) {
+			struct fixture fx;
+			for (const int* params : fx._SQUARE_MATS) {
+				// init
+				matrix<int> A(params[0], params[1]);
+				matrix<int> I = identity_matrix(params[0]);
+				_random_init(&A, &fx);
 
+			}
 		}
 
-		TEST_METHOD(div) {
+		TEST_METHOD(mult_vector) {
 
 		}
 	};
