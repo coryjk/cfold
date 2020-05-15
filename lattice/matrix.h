@@ -34,6 +34,7 @@ public:
     vector<T> operator*(const vector<T>& v);
 
     bool operator==(const matrix<T>& m);
+    bool operator!=(const matrix<T>& m);
 
     // access
     T& operator()(const uint32_t& r, const uint32_t& c);

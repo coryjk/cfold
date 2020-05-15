@@ -159,6 +159,9 @@ namespace matrix_arithmetic_tests {
 				matrix<int> I = matrix<int>::identity_matrix(params[0]);
 				_random_init(&A, &fx);
 
+				// note: implicit test of operator==() and operator!=()
+				Assert::IsTrue(A*I == A);
+				Assert::IsTrue(A*I - 1 != A);
 			}
 		}
 

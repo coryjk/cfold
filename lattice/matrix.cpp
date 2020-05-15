@@ -292,6 +292,17 @@ bool matrix<T>::operator==(const matrix<T>& m) {
 }
 
 /*
+    Inequality check
+
+        two matrices are not equal if there exist any differences
+        in shape or element values + orders
+*/
+template <class T>
+bool matrix<T>::operator!=(const matrix<T>& m) {
+    return !(*this == m);
+}
+
+/*
     Access operator
 
         X(i, j) = the j'th element on the i'th row
