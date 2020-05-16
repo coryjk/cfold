@@ -151,6 +151,7 @@ namespace matrix_arithmetic_tests {
 			}
 		}
 
+		// note: implicit test of operator==() and operator!=()
 		TEST_METHOD(mult_mat) {
 			struct fixture fx;
 			for (const int* params : fx._SQUARE_MATS) {
@@ -159,9 +160,21 @@ namespace matrix_arithmetic_tests {
 				matrix<int> I = matrix<int>::identity_matrix(params[0]);
 				_random_init(&A, &fx);
 
-				// note: implicit test of operator==() and operator!=()
+				// identity
 				Assert::IsTrue(A*I == A);
 				Assert::IsTrue(A*I - 1 != A);
+
+				// test matrix arithmetic properties
+				matrix<int> B(params[0], params[1]);
+				matrix<int> C(params[0], params[1]);
+				_random_init(&B, &fx);
+				_random_init(&C, &fx);
+
+				// associative
+				Assert::IsTrue((A*B)*C == A*(B*C));
+				
+				// distributive
+				Assert::IsTrue(A*(B + C) == A*B + A*C);
 			}
 		}
 

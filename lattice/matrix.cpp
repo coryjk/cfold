@@ -27,6 +27,16 @@ matrix<T>::matrix(const matrix<T>& m) {
 }
 
 /*
+    2D vector constructor
+*/
+template <class T>
+matrix<T>::matrix(const vector<vector<T>>& v) {
+    _N = v.size();
+    _M = v[0].size();
+    _data = v;
+}
+
+/*
     Flat vector constructor
 
         produces 1 x |v| matrix, given a vector v (note that

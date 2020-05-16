@@ -16,6 +16,7 @@ public:
     matrix() : matrix(1, 1, 0) {};
     matrix(uint32_t r, uint32_t c, const T& init = 0);
     matrix(const matrix<T>& m);
+    matrix(const vector<vector<T>>& v);
     matrix(const vector<T>& v);
     ~matrix();
 
