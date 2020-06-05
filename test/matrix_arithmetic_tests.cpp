@@ -179,7 +179,29 @@ namespace matrix_arithmetic_tests {
 		}
 
 		TEST_METHOD(mult_vector) {
+			int _N_RUNS = 5;
+			int N, M;
+			struct fixture fx;
+			for (int i = 0; i < _N_RUNS; i++) {
+				N = rand() % (fx._CEIL_VAL/2) + 1;
+				M = rand() % (fx._CEIL_VAL/2) + 2; // need more than 1 column...
+				// init matrix
+				matrix<int> A(N, M);
+				_random_init(&A, &fx);
+				// init vector (random value 0-9)
+				vector<int> x(M, rand() % 10);
 
+				// manually calculate
+				vector<int> B(N, 0);
+				for (int i = 0; i < N; i++) {
+					for (int j = 0; j < M; j++) {
+						B[i] += A(i, j) * x[j];
+					}
+				}
+
+				// compare
+				Assert::IsTrue(A*x == B);
+			}
 		}
 	};
 
